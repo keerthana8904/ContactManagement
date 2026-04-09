@@ -60,6 +60,7 @@ function createContact(){
 
     contacts.push(newCont);
     console.log(contacts);
+    contacts.sort((a, b) => a.fname.localeCompare(b.fname));
 
     // save newcontact to localStorage
     localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -81,12 +82,12 @@ showAllC.addEventListener("click",showAllContacts);
 function render(){
     showContacts.innerHTML = "";
 
+    if (this.length === 0) {
+    showContacts.innerHTML = "<p>No contacts found</p>";
+    return;
+  }
     this.forEach((contact,index)=>{
         // each contact
-       if (this.length === 0) {
-        showContacts.innerHTML = "<p>No contacts found</p>";
-        return;
-      }
         let childcont = document.createElement("div");
 
         let inputContainer = document.createElement("div");
@@ -152,9 +153,10 @@ function render(){
         contact.fname = fnameInput.value.trim();
         contact.sname = snameInput.value.trim();
         contact.phone = phoneInput.value.trim();
-
+      
         localStorage.setItem("contacts", JSON.stringify(contacts));
 
+        
         render.call(contacts);
     });
 });
