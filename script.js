@@ -3,23 +3,29 @@ let showContacts = document.getElementById("container");
 
 // get from local storage and save here - localstorage is string so parse 
 const contacts = JSON.parse(localStorage.getItem("contacts")) || [];
-let searchedContacts =  JSON.parse(localStorage.getItem("searchedContacts")) || [];;
+let searchedContacts =  [];;
 
 function searchContact(){
-   showContacts.innerHTML = "";
+
+  showContacts.innerHTML = "";
+
   let searchByName = document.getElementById("searchName").value.trim();
   searchedContacts = contacts.filter((contact)=>contact.fname.toLowerCase().includes(searchByName.toLowerCase()));
+  
   if(searchedContacts.length === 0){
     alert("contact not found");
     return;
   }
- 
-  localStorage.setItem("searchedContacts", JSON.stringify(searchedContacts));
-  render.call(searchedContacts);
+
+  if (searchByName === "") {
+    render.call(contacts);
+    return;
 }
 
+  // localStorage.setItem("searchedContacts", JSON.stringify(searchedContacts));
+  render.call(searchedContacts);
+}
 let serachButton = document.getElementById("searhBtn");
-
 serachButton.addEventListener("click",searchContact);
 
 // create contact:
@@ -29,11 +35,22 @@ function createContact(){
     let phoneInput = document.getElementById("cphone");
 
     let FirstName = First.value.trim();
+    FirstName = FirstName.charAt(0).toUpperCase() + FirstName.slice(1);
     let SurName = Sur.value.trim();
     let phone = phoneInput.value.trim();
 
-    if(FirstName === "" && phone === "") return;
+    
+    if (FirstName === "" || phone === "") {
+        alert("First name and phone are required");
+         return;
+    }
 
+    let exists = contacts.some(c => c.phone === phone);
+    if (exists) {
+      alert("Phone number already exists!");
+      return; 
+    }
+    
     let newCont ={
         id: Date.now(),
         fname: FirstName,
@@ -44,7 +61,6 @@ function createContact(){
     contacts.push(newCont);
     console.log(contacts);
 
-
     // save newcontact to localStorage
     localStorage.setItem("contacts", JSON.stringify(contacts));
     render.call(contacts); 
@@ -54,15 +70,12 @@ function createContact(){
     phoneInput.value = "";
 } 
 
-
 function showAllContacts(){
   showContacts.innerHTML = "";
   render.call(contacts);
 }
 
-
 let showAllC = document.getElementById("showAll");
-
 showAllC.addEventListener("click",showAllContacts);
 
 function render(){
@@ -70,7 +83,10 @@ function render(){
 
     this.forEach((contact,index)=>{
         // each contact
-       
+       if (this.length === 0) {
+        showContacts.innerHTML = "<p>No contacts found</p>";
+        return;
+      }
         let childcont = document.createElement("div");
 
         let inputContainer = document.createElement("div");
@@ -94,19 +110,54 @@ function render(){
 
         showContacts.appendChild(childcont);
 
-        editBtn.addEventListener("click",()=>{
-        let newFname = prompt("Enter new First Name:");
-        let newlname = prompt("Enter new last Name:");
-        let newPhone = prompt("Enter new Phone Number:");
+      //   editBtn.addEventListener("click",()=>{
+      //   let newFname = prompt("Enter new First Name:");
+      //   let newlname = prompt("Enter new last Name:");
+      //   let newPhone = prompt("Enter new Phone Number:");
 
-        if(newFname !== "") contact.fname = newFname;
-        if(newlname !== "") contact.sname = newlname;
-        if(newPhone !== "") contact.phone = newPhone;
+      //   if(newFname !== "") contact.fname = newFname;
+      //   if(newlname !== "") contact.sname = newlname;
+      //   if(newPhone !== "") contact.phone = newPhone;
+
+      //   localStorage.setItem("contacts", JSON.stringify(contacts));
+      //   render.call(contacts);
+
+      // })
+
+    editBtn.addEventListener("click", () => {
+    inputContainer.innerHTML = "";
+
+    // create input fields
+    let fnameInput = document.createElement("input");
+    fnameInput.value = contact.fname;
+
+    let snameInput = document.createElement("input");
+    snameInput.value = contact.sname;
+
+    let phoneInput = document.createElement("input");
+    phoneInput.value = contact.phone;
+
+    // save button
+    let saveEditBtn = document.createElement("button");
+    saveEditBtn.textContent = "Save";
+
+    // append inputs
+    inputContainer.appendChild(fnameInput);
+    inputContainer.appendChild(snameInput);
+    inputContainer.appendChild(phoneInput);
+    inputContainer.appendChild(saveEditBtn);
+
+    // save updated values
+        saveEditBtn.addEventListener("click", () => {
+        contact.fname = fnameInput.value.trim();
+        contact.sname = snameInput.value.trim();
+        contact.phone = phoneInput.value.trim();
 
         localStorage.setItem("contacts", JSON.stringify(contacts));
-        render.call(contacts);
 
-      })
+        render.call(contacts);
+    });
+});
 
       dltBtn.addEventListener("click",()=>{
         
@@ -124,8 +175,6 @@ function render(){
 
 
 }
-
-
 
 // localStorage.clear();
 render.call(contacts); 
