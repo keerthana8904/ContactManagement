@@ -1,0 +1,155 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+  background: #cddcf2;
+  display: flex;
+  justify-content: center;
+  padding: 40px;
+}
+
+/* Main Container */
+body > div {
+  background: #ffffff;
+  padding: 25px;
+  width: 500px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* Headings */
+p {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Input Section */
+.inputName label {
+  font-size: 14px;
+  color: #555;
+}
+
+.inputName input {
+  width: 100%;
+  padding: 8px;
+  margin: 5px 0 12px 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: 0.3s;
+}
+
+.inputName input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Buttons */
+button {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Save Button */
+#saveBtn {
+  background: #28a745;
+  color: white;
+}
+
+#saveBtn:hover {
+  background: #218838;
+}
+
+/* Search Section */
+.SearchContact {
+  margin-top: 15px;
+}
+
+.SearchContact input {
+  width: 70%;
+  padding: 7px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+#searhBtn {
+  background: #007bff;
+  color: white;
+}
+
+#searhBtn:hover {
+  background: #0056b3;
+}
+
+/* Show All Button */
+#showAll {
+  margin-top: 10px;
+  background: #6c757d;
+  color: white;
+}
+
+#showAll:hover {
+  background: #5a6268;
+}
+
+/* Contact List */
+.RenderList {
+  margin-top: 15px;
+}
+
+/* Each Contact Card */
+.RenderList > div {
+  background: #f9f9f9;
+  padding: 12px;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: 0.3s;
+}
+
+.RenderList > div:hover {
+  background: #eef2f7;
+}
+
+/* Contact Text */
+.RenderList p {
+  font-size: 14px;
+  font-weight: normal;
+  margin: 2px 0;
+}
+
+/* Buttons inside card */
+.RenderList button {
+  margin-left: 5px;
+}
+
+/* Edit Button */
+.RenderList button:nth-child(1) {
+  background: #ffc107;
+}
+
+.RenderList button:nth-child(1):hover {
+  background: #e0a800;
+}
+
+/* Delete Button */
+.RenderList button:nth-child(2) {
+  background: #dc3545;
+  color: white;
+}
+
+.RenderList button:nth-child(2):hover {
+  background: #c82333;
+}

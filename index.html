@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>contact MAnagement</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div>
+      <p>Create Contact:</p>
+
+      <div class="inputName">
+        <label for="name">First Name:</label>
+        <input type="text" id="Fname" required /> <br />
+        <label for="name">Surname Name:</label>
+        <input type="text" id="Sname" /> <br />
+        <label for="phone">Phone (Mobile):</label>
+        <input type="text" id="cphone" required />
+      </div>
+      <div class="btns addbtn">
+        <button type="button" id="saveBtn">Save</button>
+      </div>
+
+      <div class="SearchContact">
+        <br />
+        <label for="name"> Search contacts:</label>
+        <input type="text" id="searchName" />
+        <button type="button" id="searhBtn">Search</button>
+      </div>
+
+      <br />
+      <p>Contacts</p>
+      <button type="button" id="showAll">all contacts</button>
+      <div class="RenderList" id="container"></div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
